@@ -1,12 +1,12 @@
-//|===========================================|//
-//|                                           |//
-//|                 canvas.js                 |//
-//|                version 1.1                |//
-//|                                           |//
-//| author: Tim Greller      > tim-greller.tk |//
-//| published: > github.com/timlg07/Canvas.js |//
-//|                                           |//
-//|===========================================|//
+//   +-------------------------------------------+   //
+//   |                                           |   //
+//   |                 canvas.js                 |   //
+//   |                version 1.1                |   //
+//   |                                           |   //
+//   | author: Tim Greller      > tim-greller.tk |   //
+//   | published: > github.com/timlg07/Canvas.js |   //
+//   |                                           |   //
+//   +-------------------------------------------+   //
 
 
 // global class CANVAS
