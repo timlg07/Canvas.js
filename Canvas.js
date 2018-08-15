@@ -189,8 +189,8 @@ class Canvas {
     
     
     // shows a text at the given position with optional attributes
-    // @param {Object} text, position, [color], [size], [lineHeight], [fontFamily]
-    showText({ text, pos, color, size, lineHeight, fontFamily }){
+    // @param {Object} text, position, [maxWidth], [color], [size], [lineHeight], [fontFamily]
+    showText({ text, pos, maxWidth, color, size, lineHeight, fontFamily }){
         
         this.context.fillStyle = color || "#000";
         this.context.font = ( size || "20" ) +"px"+ ( fontFamily || "Arial" );
@@ -198,11 +198,12 @@ class Canvas {
         var line = '';
         var words = text.split(' ');
         var y = pos.y;
+        var max = maxWidth ||( this.obj.width-pos.x );
         
         for( let n = 0; n < words.length; n++ ){
             let testLine  = line + words[n] + ' '; // line if word would be added
             let testWidth = this.context.measureText( testLine ).width; // width this line would take
-            if( testWidth > (this.obj.width - pos.x)/*maxwidth*/ && n > 0){ // if this would be too big do print
+            if( testWidth > max/*maxwidth*/ && n > 0){ // if this would be too big do print
                 this.context.fillText( line, pos.x, y );
                 line = words[n] + ' ';
                 y += lineHeight || 30;
