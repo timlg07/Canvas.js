@@ -1,0 +1,42 @@
+<!-- 
+    include canvas.js 
+    (delete "../" if the canvas.js is in the same folder 
+    or modify the path if the canvas.js is in another directory) 
+-->
+<script src="../Canvas.js"></script>
+
+<!-- example for creating an canvas -->
+<script> 
+    // global {Canvas} canvas
+    var $canvas;
+    
+    window.onload =()=> {
+        // creating the canvas
+        // give the canvas the size of the screen to go to fullscreen without any problems
+        $canvas = new Canvas( "div#canvas-wrapper",screen.width,screen.height );
+        // DEMO // only drawing to make the canvas visible
+        $canvas.fillAll( "#126" );
+        
+        // What to do now? //
+        // create your own GUI/game/... elements extending CanvasNode or any 
+        // other class, which extends from CanvasNode (like Rectangle or Circle)
+        // and add them to the canvas, so they get updated, drawn and can handle
+        // clicks.
+    }
+</script>
+
+<!-- example for styling the canvas and the canvas-wrapper -->
+<style>
+    div#canvas-wrapper {
+        width : 90vh;
+        height: 90vh;
+        margin:  3vh auto auto;
+    }
+    canvas {
+        width : 100%;
+        height: 100%;
+    }
+</style>
+
+<!-- canvas-wrapper, parent-element of the canvas -->
+<div id ="canvas-wrapper"></div>
