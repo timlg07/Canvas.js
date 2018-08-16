@@ -11,11 +11,35 @@
     var $canvas;
     
     window.onload =()=> {
-        // creating the canvas
-        // give the canvas the size of the screen to go to fullscreen without any problems
+        
+        // [not needed, just set it to a fix value]
+        // used to display the canvas in the right ratio 
+        var wrap  = document.querySelector( "div#canvas-wrapper" );
+        var ratio = window.innerHeight / screen.height;
+        wrap.style.width  = ratio * screen.width  * 0.9 +"px";
+        wrap.style.height = ratio * screen.height * 0.9 +"px";
+        // center the canvas
+        wrap.style.margin = "auto";
+        wrap.style.marginTop = ratio * screen.height * 0.05 +"px";
+        
+        // creating the canvas //
+        // Give the canvas the size of the screen to go to fullscreen without any problems.
+        // You could use any other value like 2000x1000, 
+        // but you should use the same height-width-ratio as the wrapper
         $canvas = new Canvas( "div#canvas-wrapper",screen.width,screen.height );
+        
         // DEMO // only drawing to make the canvas visible
         $canvas.fillAll( "#126" );
+        $canvas.showText({
+            text :"This is an example for wrapped text. You could use this for different "
+                 +"elements like labels or buttons, which could extend from Rectangle and "
+                 +"use the showText-function in their draw-function.",
+            pos  :{ x:$canvas.width/4,y:$canvas.height/4 },
+            color:"#ee1",
+            maxWidth:2*$canvas.width/4,
+            size :$canvas.width/40,
+            lineHeight:1.2*$canvas.width/40
+        });
         
         // What to do now? //
         // create your own GUI/game/... elements extending CanvasNode or any 
@@ -25,14 +49,12 @@
     }
 </script>
 
-<!-- example for styling the canvas and the canvas-wrapper -->
+<!-- recommended example for styling the canvas -->
 <style>
-    div#canvas-wrapper {
-        width : 90vh;
-        height: 90vh;
-        margin:  3vh auto auto;
+    html,body {
+        margin: 0;
     }
-    canvas {
+    canvas {/* fill the full height and width of the wrapper */
         width : 100%;
         height: 100%;
     }
