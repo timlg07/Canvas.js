@@ -1,0 +1,58 @@
+<!-- 
+    include canvas.js 
+    (delete "../" if the canvas.js is in the same folder 
+    or modify the path if the canvas.js is in another directory) 
+-->
+<script src="../Canvas.js"></script>
+
+<!-- example for creating an canvas -->
+<script> 
+    // global {Canvas} canvas
+    var $canvas;
+    
+    window.onload =()=> {
+        
+        // [not needed, just set it to a fix value]
+        // used to display the canvas in the right ratio 
+        var wrap  = document.querySelector( "div#canvas-wrapper" );
+        var ratio = window.innerHeight / screen.height;
+        wrap.style.width  = ratio * screen.width  * 0.9 +"px";
+        wrap.style.height = ratio * screen.height * 0.9 +"px";
+        // center the canvas
+        wrap.style.margin = "auto";
+        wrap.style.marginTop = ratio * screen.height * 0.05 +"px";
+        
+        // creating the canvas //
+        // Give the canvas the size of the screen to go to fullscreen without any problems.
+        // You could use any other value like 2000x1000, 
+        // but you should use the same height-width-ratio as the wrapper
+        $canvas = new Canvas( "div#canvas-wrapper",screen.width,screen.height );
+        
+        $canvas.startInterval( "fpsDisplay" );
+        
+        let randomRectangle = new Rectangle( 
+            $canvas.width/4, $canvas.height/4, 1,
+            $canvas.width/2, $canvas.height/2, true,
+            "rgba(0,153,188 ,1)" 
+        );
+        
+        $canvas.addNode( randomRectangle );
+        
+    }
+</script>
+
+<!-- recommended example for styling the canvas -->
+<style>
+    html,body {
+        margin: 0;
+    }
+    canvas {/* fill the full height and width of the wrapper */
+        width : 100%;
+        height: 100%;
+    }
+</style>
+
+<!-- displays the current framerate -->
+FPS: <span id="fpsDisplay"></span>
+<!-- canvas-wrapper, parent-element of the canvas -->
+<div id ="canvas-wrapper"></div>
