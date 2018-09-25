@@ -20,11 +20,11 @@ class Canvas {
         this.obj = document.createElement("canvas");
         this.obj.width  = width;
         this.obj.height = height;
-        this.context = this.obj.getContext("2d");
+        this.context = this.obj.getContext( "2d" );
         this.nodes = [];
-        this.obj.addEventListener( "touchstart", this.onClick.bind( this ) );
-        this.obj.addEventListener( "click",      this.onClick.bind( this ) );
-        document.querySelector( containerSelector ).appendChild( this.obj  );
+        this.obj.addEventListener( "touchstart", this.onClick.bind( this ));
+        this.obj.addEventListener( "click",      this.onClick.bind( this ));
+        document.querySelector( containerSelector ).appendChild( this.obj );
     }
     
     
@@ -51,7 +51,7 @@ class Canvas {
                 return true;
             }
         } else {
-            throw new TypeError("removeNode called without a CanvasNode-Object")
+            throw new TypeError("removeNode called without a CanvasNode-Object");
         }
         return false;
     }
@@ -120,7 +120,7 @@ class Canvas {
         this.startTime = 0;
         this.lastFrameTime = 0;
         this.showFPS_id = id || null;
-        window.requestAnimationFrame( this.update.bind( this ) );
+        window.requestAnimationFrame( this.update.bind( this ));
     }
     
     
@@ -129,22 +129,18 @@ class Canvas {
     update( time ){
         if( this.startTime == 0 ){ // if is first call
             this.startTime = time;
-            this.lastFrameTime = time;
         } else {
             // calculating fps //
             // time since last update in ms
             let deltaTime = time - this.lastFrameTime;
             // frames per second
-            let fps = 1 / ( deltaTime / 1000 );
-            // saving current time
-            this.lastFrameTime = time;
-            this.fps = fps;
+            this.fps = 1 / ( deltaTime / 1000 );
             // executing updates //
             // check if redrawing is necessary
             let redraw = false;
             // update all nodes
             for( let node of this.nodes ){
-                 if( node.update.call( node, fps )){
+                 if( node.update.call( node, this.fps )){
                      redraw = true;
                  }
             }
@@ -156,8 +152,10 @@ class Canvas {
                 }
             }
         }
+        // saving current time
+        this.lastFrameTime = time;
         // looping
-        window.requestAnimationFrame( this.update.bind( this ) );
+        window.requestAnimationFrame( this.update.bind( this ));
     }
     
     
@@ -166,8 +164,8 @@ class Canvas {
     set fps( fps ){
         this._fps = fps;
         let  text = Math.round( fps/**10*/ )/*/10*/;
-        if( this.showFPS_id){
-            let elem = document.getElementById( this.showFPS_id )
+        if( this.showFPS_id ){
+            let elem = document.getElementById( this.showFPS_id );
             if( elem && elem.innerText != text ){
                 elem.innerText = text;
             }
