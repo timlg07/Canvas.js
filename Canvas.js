@@ -117,9 +117,9 @@ class Canvas {
     // starts updating and drawing the CanvasNodes
     // @param [ {String} HTML-element-id to show the current fps ]
     startInterval( id ){
-        this.startTime = 0;
-        this.lastFrameTime = 0;
-        this.showFPS_id = id || null;
+        this.startTime     = -1;
+        this.lastFrameTime = -1;
+        this.showFPS_id    = id || null;
         window.requestAnimationFrame( this.update.bind( this ));
     }
     
@@ -129,7 +129,8 @@ class Canvas {
     update( time ){
         // check if redrawing is necessary
         let redraw = false;
-        if( this.startTime == 0 ){ // if is first call
+        // if it's the first call: don't update, but draw 
+        if( this.startTime == -1 ){
             this.startTime = time;
             redraw = true;
         } else {
