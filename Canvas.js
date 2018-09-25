@@ -127,8 +127,11 @@ class Canvas {
     // called every frame // start the updating with startInterval( )
     // @param {Number} timestamp
     update( time ){
+        // check if redrawing is necessary
+        let redraw = false;
         if( this.startTime == 0 ){ // if is first call
             this.startTime = time;
+            redraw = true;
         } else {
             // calculating fps //
             // time since last update in ms
@@ -136,20 +139,18 @@ class Canvas {
             // frames per second
             this.fps = 1 / ( deltaTime / 1000 );
             // executing updates //
-            // check if redrawing is necessary
-            let redraw = false;
             // update all nodes
             for( let node of this.nodes ){
                  if( node.update.call( node, this.fps )){
                      redraw = true;
                  }
             }
-            // redraw if necessary
-            if( redraw ){
-                this.context.clearRect( 0,0,this.width,this.height );
-                for( let node of this.nodes ){
-                     node.draw.call( node, this.context );
-                }
+        }
+        // redraw if necessary
+        if( redraw ){
+            this.context.clearRect( 0,0,this.width,this.height );
+            for( let node of this.nodes ){
+                 node.draw.call( node, this.context );
             }
         }
         // saving current time
