@@ -6,3 +6,5 @@ The canvas-class provides:
 - Drawing all nodes if necessary (the nodes with lowest z-index get drawn first)
 - Handling clicks on the canvas individually for each node
 - Some other functions like printing wrapped text and vector-calculations
+
+version 1.2 (compatible with code using the version before)

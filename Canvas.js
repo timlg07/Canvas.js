@@ -1,7 +1,7 @@
 //   +-------------------------------------------+   //
 //   |                                           |   //
 //   |                 canvas.js                 |   //
-//   |                version 1.1                |   //
+//   |                version 1.2                |   //
 //   |                                           |   //
 //   | author: Tim Greller      > tim-greller.tk |   //
 //   | published: > github.com/timlg07/Canvas.js |   //
