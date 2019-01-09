@@ -12,18 +12,33 @@
 // global class CANVAS
 class Canvas {
     
-    // creating a new canvas
-    // @param {String} query-selector for the parent of the new canvas
-    //        {Number} width  (can be adjusted with CSS afterwards)
-    //        {Number} height (can be adjusted with CSS afterwards)
-    constructor( containerSelector, width, height ){
-        this.obj = document.createElement("canvas");
-        this.obj.width  = width;
-        this.obj.height = height;
+    // Creates a new canvas or sets up an existing one.
+    // @param {String} query-selector for the parent of the new canvas (which will be created)
+    //                 or an existing canvas (in this case width and height are not required)
+    //      [ {Number} width  (can be adjusted with CSS afterwards) ]
+    //      [ {Number} height (can be adjusted with CSS afterwards) ]
+    constructor( selector, width, height ){
+        
+        if( document.querySelector( selector ).tagName == "CANVAS" ){
+            this.obj = document.querySelector( selector );
+        } else {
+            this._createCanvasObj( selector, width, height );
+        }
+        
         this.context = this.obj.getContext( "2d" );
+        
         this.nodes = [];
         this.obj.addEventListener( "touchstart", this.onClick.bind( this ));
         this.obj.addEventListener( "click",      this.onClick.bind( this ));
+    }
+    
+    
+    // [private function]
+    // Creates a new canvas. Is used by the constructor.
+    _createCanvasObj( containerSelector, width, height ){
+        this.obj = document.createElement("canvas");
+        this.obj.width  = width;
+        this.obj.height = height;
         document.querySelector( containerSelector ).appendChild( this.obj );
     }
     
