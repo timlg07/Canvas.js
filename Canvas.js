@@ -196,6 +196,46 @@ class Canvas {
     }
 
 
+    isFullscreen( ){
+        let is =e=> e && e !== null;
+        return (
+            is(document.fullscreenElement)       ||
+            is(document.webkitFullscreenElement) ||
+            is(document.mozFullScreenElement)    ||
+            is(document.msFullscreenElement)
+        );
+    }
+
+
+    // the canvas-element enters or leaves fullscreen
+    // @return {boolean} if fullscreen is supported
+    toggleFullscreen( ){
+        return ( this.isFullscreen()
+               ? this.goFullscreen()
+               : this.exitFullscreen()
+        );
+    }
+
+    // requests Fullscreen for the canvas-element
+    // @return {boolean} if fullscreen is supported
+    goFullscreen( ){
+        if (this.obj.      requestFullscreen){ this.obj.requestFullscreen();       return true; }
+        if (this.obj.webkitRequestFullscreen){ this.obj.webkitRequestFullscreen(); return true; }
+        if (this.obj.   mozRequestFullScreen){ this.obj.mozRequestFullScreen();    return true; }
+        if (this.obj.    msRequestFullscreen){ this.obj.msRequestFullscreen();     return true; }
+        return false;
+    }
+
+    // the canvas-element leaves fullscreen
+    // @return {boolean} if fullscreen is supported
+    exitFullscreen( ){
+        if (this.obj.      exitFullscreen){ this.obj.exitFullscreen();       return true; }
+        if (this.obj.webkitExitFullscreen){ this.obj.webkitExitFullscreen(); return true; }
+        if (this.obj.   mozExitFullscreen){ this.obj.mozExitFullscreen();    return true; }
+        if (this.obj.    msExitFullscreen){ this.obj.msExitFullscreen();     return true; }
+        return false;
+    }
+
 
     // fills the canvas with a color
     // @param {String} color
