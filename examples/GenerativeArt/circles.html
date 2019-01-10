@@ -1,104 +1,106 @@
-<title>[F]ullscreen (press 'f')</title>
-<script src="../../Canvas.js"></script>
-<script src="circle.js"></script>
-<script src="random.js"></script>
+<!DOCTYPE html>
+<head>
+    <title>[F]ullscreen (press 'f')</title>
+    <script src="../../Canvas.js"></script>
+    <script src="circle.js"></script>
+    <script src="random.js"></script>
+    <script>
+        let $canvas     = new Canvas( "#content",document.body.clientWidth-20,document.body.clientHeight-20 );
+        let $circles    = [];
+        let MAX_CIRCLES =  8;
+        let LENGTH_UNIT = Math.min( $canvas.obj.width, $canvas.obj.height ) / 100;
+        let isFullscreen= false;
+
+        while( $circles.length < MAX_CIRCLES )
+        {
+            createRandomCircle();
+        }
+
+        $canvas.startInterval();
+
+        window.addEventListener("keydown",e=>{
+            if( e.key == 'f' )
+            {
+                if( !isFullscreen )
+                {
+                    if ($canvas.obj.requestFullscreen) {
+                        $canvas.obj.requestFullscreen();
+                    } else if ($canvas.obj.msRequestFullscreen) {
+                        $canvas.obj.msRequestFullscreen();
+                    } else if ($canvas.obj.mozRequestFullScreen) {
+                        $canvas.obj.mozRequestFullScreen();
+                    } else if ($canvas.obj.webkitRequestFullscreen) {
+                        $canvas.obj.webkitRequestFullscreen();
+                    }
+                }
+                else
+                {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    } else if (document.webkitExitFullscreen) {
+                        document.webkitExitFullscreen();
+                    } else if (document.mozCancelFullScreen) {
+                        document.mozCancelFullScreen();
+                    } else if (document.msExitFullscreen) {
+                        document.msExitFullscreen();
+                    }
+                }
+
+                isFullscreen = !isFullscreen;
+            }
+        });
+
+        document.addEventListener('webkitfullscreenchange', onFullscreenChange, false);
+        document.addEventListener(      'fullscreenchange', onFullscreenChange, false);
+        document.addEventListener(    'msfullscreenchange', onFullscreenChange, false);
+        document.addEventListener(   'mozfullscreenchange', onFullscreenChange, false);
+
+        function onFullscreenChange()
+        {
+            if( isFullscreen )
+            {
+                $canvas.obj.width  = screen.width ;
+                $canvas.obj.height = screen.height;
+            }
+            else
+            {
+                $canvas.obj.width  = document.body.clientWidth -20;
+                $canvas.obj.height = document.body.clientHeight-20;
+            }
+        }
+
+
+        function removeCircle( circle )
+        {
+            $canvas.removeNode( circle );
+            $circles.splice( $circles.indexOf( circle ),1 );
+            createRandomCircle();
+        }
+
+        function createRandomCircle()
+        {
+            let tmp = new progressiveCircle(
+                randomInt( LENGTH_UNIT*3, LENGTH_UNIT*40 ),
+                {
+                    x:randomInt( 0,$canvas.obj.width  ),
+                    y:randomInt( 0,$canvas.obj.height )
+                },
+                {
+                    in  : randomInt( 500,2000 ),
+                    stay: randomInt(  50,8000 ),
+                    out : randomInt( 400,2000 )
+                },
+                "#254fd3",
+                randomInt(5,100)/100
+            );
+
+            $circles.push  ( tmp );
+            $canvas.addNode( tmp );
+            return           tmp  ;
+        }
+    </script>
+</head>
 <body>
     <div id="content">
     </div>
 </body>
-
-<script>
-    let $canvas     = new Canvas( "#content",document.body.clientWidth-20,document.body.clientHeight-20 );
-    let $circles    = [];
-    let MAX_CIRCLES =  8;
-    let LENGTH_UNIT = Math.min( $canvas.obj.width, $canvas.obj.height ) / 100;
-    let isFullscreen= false;
-    
-    while( $circles.length < MAX_CIRCLES )
-    {
-        createRandomCircle();
-    }
-    
-    $canvas.startInterval();
-    
-    window.addEventListener("keydown",e=>{
-        if( e.key == 'f' )
-        {
-            if( !isFullscreen )
-            {
-                if ($canvas.obj.requestFullscreen) {
-                    $canvas.obj.requestFullscreen();
-                } else if ($canvas.obj.msRequestFullscreen) {
-                    $canvas.obj.msRequestFullscreen();
-                } else if ($canvas.obj.mozRequestFullScreen) {
-                    $canvas.obj.mozRequestFullScreen();
-                } else if ($canvas.obj.webkitRequestFullscreen) {
-                    $canvas.obj.webkitRequestFullscreen();
-                }
-            }
-            else
-            {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                } else if (document.webkitExitFullscreen) {
-                    document.webkitExitFullscreen();
-                } else if (document.mozCancelFullScreen) {
-                    document.mozCancelFullScreen();
-                } else if (document.msExitFullscreen) {
-                    document.msExitFullscreen();
-                }
-            }
-            
-            isFullscreen = !isFullscreen;
-        }
-    });
-    
-    document.addEventListener('webkitfullscreenchange', onFullscreenChange, false);
-    document.addEventListener(      'fullscreenchange', onFullscreenChange, false);
-    document.addEventListener(    'msfullscreenchange', onFullscreenChange, false);
-    document.addEventListener(   'mozfullscreenchange', onFullscreenChange, false);
-    
-    function onFullscreenChange()
-    {
-        if( isFullscreen )
-        {
-            $canvas.obj.width  = screen.width ;
-            $canvas.obj.height = screen.height;
-        }
-        else
-        {
-            $canvas.obj.width  = document.body.clientWidth -20;
-            $canvas.obj.height = document.body.clientHeight-20;
-        }
-    }
-    
-    
-    function removeCircle( circle )
-    {
-        $canvas.removeNode( circle );
-        $circles.splice( $circles.indexOf( circle ),1 );
-        createRandomCircle();
-    }
-    
-    function createRandomCircle()
-    {
-        let tmp = new progressiveCircle(
-            randomInt( LENGTH_UNIT*3, LENGTH_UNIT*40 ),
-            {
-                x:randomInt( 0,$canvas.obj.width  ),
-                y:randomInt( 0,$canvas.obj.height )
-            },
-            {
-                in  : randomInt( 500,2000 ),
-                stay: randomInt(  50,8000 ),
-                out : randomInt( 400,2000 )
-            },
-            "#254fd3",
-            randomInt(5,100)/100
-        );
-        
-        $circles.push  ( tmp );
-        $canvas.addNode( tmp );
-        return           tmp  ;
-    }
-</script>
