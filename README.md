@@ -7,4 +7,4 @@ The canvas-class provides:
 - Handling clicks on the canvas individually for each node
 - Some other functions like printing wrapped text and vector-calculations
 
-version 1.2 (compatible with code using the version before)
+version 1.2 (compatible with all previous published versions)
