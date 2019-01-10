@@ -30,6 +30,7 @@ class Canvas {
         this.nodes = [];
         this.obj.addEventListener( "touchstart", this.onClick.bind( this ));
         this.obj.addEventListener( "click",      this.onClick.bind( this ));
+        
     }
     
     
