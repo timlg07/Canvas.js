@@ -198,11 +198,11 @@ class Canvas {
 
     isFullscreen( ){
         let is =e=> e && e !== null;
-        return (
-            is(document.fullscreenElement)       ||
+        return !! (
+            is(document.      fullscreenElement) ||
             is(document.webkitFullscreenElement) ||
-            is(document.mozFullScreenElement)    ||
-            is(document.msFullscreenElement)
+            is(document.   mozFullScreenElement) ||
+            is(document.    msFullscreenElement)
         );
     }
 
