@@ -30,6 +30,8 @@ class Canvas {
         this.nodes = [];
         this.obj.addEventListener( "touchstart", this.onClick.bind( this ));
         this.obj.addEventListener( "click",      this.onClick.bind( this ));
+        window  .addEventListener( "keyup",      this.onKeyUp.bind( this ));
+        window  .addEventListener( "keydown",  this.onKeyDown.bind( this ));
 
     }
 
@@ -114,6 +116,20 @@ class Canvas {
         if( this.isNodeAt ( click ) ){
             this.getNodeAt( click ).onClick( evt );
         }
+
+    }
+
+    // listener for keyup-events
+    // set ``$canvas.onKeyUp = function( evt )`` for individual handler
+    onKeyUp( evt ){
+        switch( evt.key ){
+            case 'f': this.toggleFullscreen(); break;
+        }
+    }
+
+    // listener for keydown-events
+    // set ``$canvas.onKeyDown = function( evt )`` for individual handler
+    onKeyDown( evt ){
 
     }
 
